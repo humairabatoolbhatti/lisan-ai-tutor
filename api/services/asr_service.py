@@ -2,9 +2,8 @@ import tempfile
 import os
 from openai import OpenAI
 
-client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
-
 def transcribe_audio(uploaded_file):
+    client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
     with tempfile.NamedTemporaryFile(delete=False, suffix=".mp3") as tmp:
         tmp.write(uploaded_file.file.read())
         tmp_path = tmp.name
