@@ -1,12 +1,16 @@
 import tempfile
-import whisper
+import os
+from openai import OpenAI
 
-model = whisper.load_model("base")
+client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
 def transcribe_audio(uploaded_file):
     with tempfile.NamedTemporaryFile(delete=False, suffix=".mp3") as tmp:
         tmp.write(uploaded_file.file.read())
         tmp_path = tmp.name
-
-    result = model.transcribe(tmp_path)
-    return result["text"]
+    with open(tmp_path, "rb") as audio_file:
+        transcript = client.audio.transcriptions.create(
+            model="whisper-1",
+            file=audio_file
+        )
+    return transcript.text
