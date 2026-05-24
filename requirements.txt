@@ -7,4 +7,3 @@ requests
 numpy
 openai
 sqlalchemy
-openai-whisper
