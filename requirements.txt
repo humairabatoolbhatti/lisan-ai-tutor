@@ -8,3 +8,5 @@ numpy
 openai
 sqlalchemy
 gtts
+gtts
+google-generativeai
